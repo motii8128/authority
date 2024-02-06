@@ -11,14 +11,12 @@ pub struct HRCS
 }
 
 impl HRCS {
-    pub async fn init_hrcs(&mut self, addr:&str)->Result<(), Error>
+    pub async fn init_hrcs(addr:&str)->Result<HRCS, Error>
     {
-        self.addr_ = addr.to_string();
         match UdpSocket::bind(addr).await{
             Ok(socket)=>{
                 log::log_info("Initialize Node".to_string());
-                self.node_ = socket;
-                Ok(())
+                Ok(HRCS{node_:socket, addr_:addr.to_string(), destination_:"ZERO".to_string()})
             }
             Err(_)=>{
                 log::log_err("Failed to initialize Node".to_string());
@@ -40,10 +38,10 @@ impl HRCS {
                 match self.node_.send_to(send_data, self.destination_).await
                 {
                     Ok(_)=>{
-
+                        log::log_info("Send Response".to_string())
                     }
                     Err(_)=>{
-
+                        log::log_err("Failed to send response".to_string())
                     }
                 }
             }
@@ -51,5 +49,11 @@ impl HRCS {
                 log::log_err("Failed to connect client".to_string());
             }
         }
+    }
+    pub fn get_local_addr(self)->String
+    {
+        let re = self.addr_;
+
+        re
     }
 }
