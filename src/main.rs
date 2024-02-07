@@ -4,7 +4,7 @@ use hrcs::server::*;
 #[async_std::main]
 async fn main()
 {
-    let hrcs = HRCS::init_hrcs("192.168.11.61").await.unwrap();
+    let mut hrcs = HRCS::new("192.168.11.61:8080").await.unwrap();
 
-    hrcs.connect_client().await;
+    let _ = hrcs.get_client();
 }
