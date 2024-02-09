@@ -2,19 +2,21 @@ use std::fmt::Error;
 use std::time::Duration;
 
 use async_std::net::UdpSocket;
-use crate::log;
+use crate::{log, robot_control::{Robot ,Vector}};
 
 struct Client
 {
     pub name:String,
     pub ip_addr:String,
+    pub position:Vector
 }
 
 pub struct HRCS
 {
     node_:UdpSocket,
     addr_:String,
-    participants:Vec<Client>
+    participants:Vec<Client>,
+    robot:Robot
 }
 
 impl HRCS {
@@ -26,7 +28,8 @@ impl HRCS {
                 Ok(HRCS{
                     node_:socket, 
                     addr_:addr.to_string(), 
-                    participants:Vec::<Client>::new()
+                    participants:Vec::<Client>::new(),
+                    robot:Robot::new()
                 })
             }
             Err(e)=>{
@@ -53,7 +56,7 @@ impl HRCS {
                         
                         log::log_info(format!("Connect {}", dest_id));
 
-                        let new_cli = Client{ip_addr:data.1.to_string(), name:dest_id};
+                        let new_cli = Client{ip_addr:data.1.to_string(), name:dest_id, position:Vector::new()};
                         self.participants.push(new_cli);
 
                         let send_str = format!("[HRCS]:TRUE");
