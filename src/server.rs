@@ -38,7 +38,6 @@ impl HRCS {
     }
     pub async fn get_client(&mut self)
     {
-        // self.destination_.iter().position(|x| *x == data.1.to_string())
         let mut buf = [0_u8; 512];
         match self.node_.recv_from(&mut buf).await {
             Ok(data)=>{
