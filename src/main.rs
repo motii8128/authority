@@ -1,5 +1,5 @@
 use async_std;
-use hrcs::server::*;
+use hrcs::hrcs::*;
 
 #[async_std::main]
 async fn main()
@@ -8,5 +8,6 @@ async fn main()
 
     loop {
         hrcs.get_client().await;
+        hrcs.manual_controller().await;        
     }
 }
