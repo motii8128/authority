@@ -1,6 +1,6 @@
 [package]
 # Hakodate Robot Control Server
-name = "hrcs"
+name = "authority"
 version = "0.1.0"
 edition = "2021"
 
