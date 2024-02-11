@@ -1,4 +1,4 @@
-# hrcs
+# Authority
 The server system for control robot.
 
 # Build test
