@@ -1,6 +1,8 @@
 # Authority
 The server system for control robot.
 
+![](./authority.png)
+
 # Build test
 |name|status|
 |:--:|:--:|
