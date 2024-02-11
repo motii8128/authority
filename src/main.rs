@@ -1,13 +1,13 @@
 use async_std;
-use hrcs::hrcs::*;
+use authority::hrcs::*;
 
 #[async_std::main]
 async fn main()
 {
-    let mut hrcs = HRCS::new("127.0.0.1:8080").await.unwrap();
+    let mut node = Authority::new("127.0.0.1:8080").await.unwrap();
 
     loop {
-        hrcs.get_client().await;
-        hrcs.manual_controller().await;        
+        node.get_client().await;
+        node.manual_controller().await;    
     }
 }

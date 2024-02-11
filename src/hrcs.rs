@@ -11,7 +11,7 @@ struct Client
     pub position:Vector
 }
 
-pub struct HRCS
+pub struct Authority
 {
     sock:UdpSocket,
     addr_:String,
@@ -20,14 +20,14 @@ pub struct HRCS
     controller:DualShock4
 }
 
-impl HRCS {
-    pub async fn new(addr:&str)->Result<HRCS, Error>
+impl Authority {
+    pub async fn new(addr:&str)->Result<Authority, Error>
     {
         match UdpSocket::bind(addr).await{
             Ok(socket)=>{
                 log::log_info("Initialized Node".to_string());
                 let con = DualShock4::new().unwrap();
-                Ok(HRCS{
+                Ok(Authority{
                     sock:socket, 
                     addr_:addr.to_string(), 
                     participants:Vec::<Client>::new(),
