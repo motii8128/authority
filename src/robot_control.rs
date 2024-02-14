@@ -1,6 +1,8 @@
 use serde::{Serialize, Deserialize};
 use serde_json;
 
+use crate::log;
+
 #[derive(Serialize, Deserialize)]
 pub struct Vector
 {
@@ -66,8 +68,14 @@ impl Robot {
     }
     pub fn set_current_position(&mut self, position:String)
     {
-        let pos:Vector = serde_json::from_str(&position).unwrap();
-
-        self.current_position = pos;
+        match serde_json::from_str::<Vector>(&position)
+        {
+            Ok(get)=>{
+                self.current_position = get;
+            }
+            Err(_)=>{
+                log::log_err("Diff Message type".to_string());
+            }
+        }
     }
 }
