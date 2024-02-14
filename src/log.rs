@@ -2,10 +2,10 @@ use colored::{self, Colorize};
 
 pub fn log_info(msg:String)
 {
-    println!("[HRCS]:{}", msg.blue());
+    println!("[Authority]:{}", msg.blue());
 }
 
 pub fn log_err(msg:String)
 {
-    println!("[HRCS]:{}", msg.red());
+    println!("[Authority]:{}", msg.red());
 }
