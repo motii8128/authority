@@ -3,6 +3,7 @@ use std::time::Duration;
 use async_std::net::UdpSocket;
 use crate::{log, robot_control::*};
 use dualshock_driver::DualShock4;
+use macroquad::prelude::*;
 
 pub const SIM_IP:&str = "127.0.0.1:6565";
 
@@ -112,24 +113,6 @@ impl Authority {
                 }
             }
         }
-    }
-    pub async fn connect_viewer(&mut self)
-    {
-        let _ = self.controller.read().unwrap();
-            let x = self.controller.sticks.left_x;
-            let y = self.controller.sticks.left_y;
-            let rotation = self.controller.sticks.right_x;
-
-            let vec = self.robot.manual_robot(x, y, rotation);
-
-            match self.sock.send_to(vec.as_bytes(), SIM_IP).await {
-                Ok(_)=>{
-                    log::log_info(format!("Send {}", vec));
-                }
-                Err(_)=>{
-                    log::log_err("Send error".to_string());
-                }
-            }
     }
     pub async fn get_robot_position(&mut self)
     {

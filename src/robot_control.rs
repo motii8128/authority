@@ -24,8 +24,8 @@ impl Vector {
 
 pub struct Robot
 {
-    current_position:Vector,
-    target_position:Vector,
+    pub current_position:Vector,
+    pub target_position:Vector,
     enable_feedback:bool
 }
 
