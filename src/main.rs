@@ -1,7 +1,7 @@
-use macroquad;
 use authority::node::Authority;
+use async_std;
 
-#[macroquad::main("3D")]
+#[async_std::main]
 async fn main()
 {
     let mut node = Authority::new("127.0.0.1:8080", false).await.unwrap();

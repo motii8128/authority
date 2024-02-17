@@ -3,7 +3,6 @@ use std::time::Duration;
 use async_std::net::UdpSocket;
 use crate::{log, robot_control::*};
 use dualshock_driver::DualShock4;
-use macroquad::prelude::*;
 
 pub const SIM_IP:&str = "127.0.0.1:6565";
 
@@ -97,7 +96,7 @@ impl Authority {
     {
         if self.cycle == START_ROBOT
         {
-            let _ = self.controller.read().unwrap();
+            let _ = self.controller.read().await;
             let x = self.controller.sticks.left_x;
             let y = self.controller.sticks.left_y;
             let rotation = self.controller.sticks.right_x;
